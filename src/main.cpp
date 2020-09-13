@@ -29,7 +29,7 @@ int main()
 
 	for (auto &&i : vetor)
 	{
-		cout << i << "\n";
+		cout << "Index: " << i << "\n";
 	}
 
 	return 0;
