@@ -1,1 +1,5 @@
 .vscode
+medicao_tempo.cpp
+saida_binaria.txt
+saida_linear.txt
+timing_template.cpp
