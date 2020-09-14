@@ -25,7 +25,8 @@ int main()
 	{
 		int* amostra = new int[indexI];
 		fill_n(amostra, indexI, 0);
-		int *begin = std::begin(amostra), *end = std::end(amostra);
+		int *begin{amostra};
+		int *end{amostra+indexI};
 
 		for (int indexJ{0}; indexJ < 100; indexJ++)
 		{
