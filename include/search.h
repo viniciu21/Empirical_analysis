@@ -8,6 +8,6 @@
 #include <algorithm>
 
 int *lin_search(int *first, int *last, short target);
-int *bsearch(int *first, int *last, int target);
+int *bsearch(int *first, int *last, short target);
 
 #endif
