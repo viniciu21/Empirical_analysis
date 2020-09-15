@@ -1,3 +1,3 @@
 # Empirical_analysis
 
-Empirical analysis for linear and binary searches algorithm.
+Empirical analysis for linear and binary search algorithms.
