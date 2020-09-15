@@ -13,7 +13,7 @@ int *bsearch(int *first, int *last, short target)
 		// Evaluates the step value
 		int step{count / 2};
 		// Evaluates the middle element pointer
-		int *mid = {first + step};
+		int *mid = first + step;
 
 		// Found the target
 		if (target == (*mid))
@@ -37,7 +37,7 @@ int *bsearch(int *first, int *last, short target)
 
 				// Resizes the current array turning it into the right half sub array
 				first = mid + 1;
-				count = count - (step - 1);
+				count = count - step - 1;
 			}
 		}
 	}
@@ -45,7 +45,7 @@ int *bsearch(int *first, int *last, short target)
 	return last; // Failed
 };
 
-int *lin_search(int *first, int *last, short target)
+int *lsearch(int *first, int *last, short target)
 {
 
 	// Traver the array

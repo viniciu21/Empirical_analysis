@@ -1,53 +1,65 @@
 #include <iostream>
 #include <chrono>
-#include <iterator>
 #include <algorithm>
-#include <cmath>
 #include <fstream>
 #include "../include/search.h"
 
-// using std::cout;
-// using std::ofstream;
-// using std::fill_n;
 using namespace std;
 
-int main()
-{
-	srand((unsigned)time(0));
+int main (){
 
-	short target{6};
-	// int V[5] = {1, 2, 3, 4, 5};
-	// int *begin = std::begin(V);
-	// int *end = std::end(V);
-	// int *result = bsearch(begin, end, target);
-	// cout << *result << "\n";
+	ofstream linearf, binaryf;
+	linearf.open("linear.txt");
+	binaryf.open("binary.txt");
 
-	ofstream tempo_blinear, tempo_bbinaria;
-	tempo_blinear.open("saida_linear.txt");
-	tempo_bbinaria.open("saida_binaria.txt");
+	short target{1};
+	long double bin_values[100], lin_values[100];
 
-	for (int indexI{50}; indexI <= 10000; indexI += 50)
-	{
-		int *amostra = new int[indexI];
-		fill_n(amostra, indexI, 0);
-		int *begin{amostra};
-		int *end{(amostra + indexI) - 1};
+	for (int indexI{50}; indexI <= 100000; indexI += 50){
 
-		for (int indexJ{0}; indexJ < 100; indexJ++)
-		{
-			auto comeco = chrono::steady_clock::now();
+		int *samples = new int[indexI];
+		fill_n(samples, indexI, 0);
+		
+		int *begin{samples};
+		int *end{(samples + indexI) - 1};
 
-			lin_search(begin, end, target);
+		long double lin_sum{0}, bin_sum{0}, lin_average, bin_average;
 
-			auto fim = chrono::steady_clock::now();
-			auto diferenca = fim - comeco;
+		for (int indexJ{0}; indexJ < 100; indexJ++){
 
-			tempo_blinear << indexI << " " << chrono::duration<double, milli>(diferenca).count() << endl;
-		};
-	};
+			auto start_time = chrono::steady_clock::now();
 
-	tempo_blinear.close();
-	tempo_bbinaria.close();
+			lsearch (begin, end, target);
+
+			auto end_time = chrono::steady_clock::now();
+			auto difference = end_time - start_time;
+
+			lin_values[indexJ] = chrono::duration <long double, milli> (difference).count();
+
+			start_time = chrono::steady_clock::now();
+
+			bsearch (begin, end, target);
+
+			end_time = chrono::steady_clock::now();
+			difference = end_time - start_time;
+
+			bin_values[indexJ] = chrono::duration <long double, milli> (difference).count();
+		}
+
+		for (int indexJ{0}; indexJ < 100; indexJ++){
+			lin_sum += lin_values[indexJ];
+			bin_sum += bin_values[indexJ];
+		}
+
+		lin_average = lin_sum/100;
+		bin_average = bin_sum/100;
+
+		linearf << indexI << " " << lin_average << endl;
+		binaryf << indexI << " " << bin_average << endl;
+	}
+
+	linearf.close();
+	binaryf.close();
 
 	return 0;
 }
